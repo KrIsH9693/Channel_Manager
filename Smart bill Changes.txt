@@ -1,7 +1,0 @@
-		Smart Bill
-1. Partial payment
-2. Table hold
-3. Credit Customer
-4. Inventory
-5. Inclusive
-6. 
