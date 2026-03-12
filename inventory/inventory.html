@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Inventory</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <style>
+
+    .room-box {
+      border: 1px solid #ddd;
+      padding: 12px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .day {
+      padding: 8px;
+      text-align: center;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .available { background: #e6f4ea; color: #137333; }
+    .override  { background: #fff4cc; color: #8a6d00; }
+    .stopsell  { background: #fdecea; color: #a50e0e; }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-box {
+      background: #fff;
+      padding: 20px;
+      width: 320px;
+      border-radius: 10px;
+    }
+
+    .modal-actions button {
+      margin-right: 10px;
+      margin-top: 10px;
+    }
+
+    .green { background: #198754; color: #fff; }
+    .red { background: #dc3545; color: #fff; }
+    .secondary { background: #6c757d; color: #fff; }
+
+  </style>
+</head>
+
+<body>
+
+<h2>Inventory</h2>
+
+<div>
+  <input id="rtName" placeholder="Room Type Name">
+  <input id="rtCount" type="number" placeholder="Total Rooms">
+  <input id="rtPrice" type="number" placeholder="Base Price">
+  <button onclick="createRoomType()">Create Room Type</button>
+</div>
+
+<hr>
+
+<div id="inventoryContainer"></div>
+
+<!-- DAY MODAL -->
+<div id="dayModal" class="modal">
+  <div class="modal-box">
+    <h4 id="modalDate"></h4>
+
+    <label>Price</label>
+    <input type="number" id="modalPrice" placeholder="Base Price">
+
+    <div class="modal-actions">
+      <button class="green" onclick="setAvailable()">Available</button>
+      <button class="red" onclick="setStopSell()">Stop Sell</button>
+    </div>
+
+    <button class="secondary" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script src="inventory.js"></script>
+<script src="/assets/js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+Inventory-Driven Channel Manager System
+1️⃣ PROJECT OVERVIEW (WHAT IS THIS SYSTEM?)
+
+This project is a frontend-first Channel Manager MVP designed for hotels / properties to:
+
+Control room availability
+
+Manage pricing dynamically
+
+Apply stop-sell rules
+
+Visualize inventory performance
+
+Generate business reports
+
+Prepare a clean foundation for OTA integrations and backend APIs
+
+⚠️ This is NOT a PMS.
+It is intentionally designed as a Channel Manager, which focuses on supply control, not guest operations.
+
+2️⃣ CORE DESIGN PHILOSOPHY
+🔑 Inventory Calendar = Single Source of Truth
+
+Every feature in the system derives from inventory calendar data.
+
+There is:
+
+❌ No dependency on reservations
+
+❌ No booking-first logic
+
+❌ No hardcoded metrics
+
+Everything is calculated from:
+
+Room → Calendar → Status + Price
+
+This mirrors how real-world channel managers operate.
+
+3️⃣ WHAT HAS BEEN BUILT (CURRENT SCOPE)
+✅ 3.1 Inventory Module (FINAL & LOCKED)
+
+The inventory module allows:
+
+Structure
+
+Properties
+
+Room Types
+
+Individual Rooms
+
+Per-room base price
+
+Per-room calendar
+
+Calendar Capabilities
+
+Month-wise view (Current + Next Month)
+
+Date-level interaction
+
+Price override per date
+
+Stop Sell per date
+
+Active / Inactive room control
+
+Technical Notes
+
+Calendar stored as date-keyed object
+
+Supports sparse data (only modified dates stored)
+
+Optimized for backend sync
+
+"calendar": {
+  "2026-03-15": {
+    "status": "stopsell",
+    "price": 3500
+  }
+}
+✅ 3.2 Dashboard Module (LIVE & EVENT-DRIVEN)
+
+The dashboard is read-only and derives everything from inventory.
+
+Metrics Displayed
+
+Total Properties
+
+Active OTAs
+
+Total Room Types
+
+Total Rooms
+
+Rooms Blocked Today
+
+Today’s Revenue
+
+Occupancy %
+
+Charts Implemented
+
+Line Chart – Weekly Potential Revenue
+
+Bubble Chart – Today Room Status (Sold vs Available)
+
+Live Update Mechanism
+
+Inventory emits inventoryUpdated
+
+Dashboard listens and re-renders instantly
+
+No refresh required
+
+This mimics real-time hotel operations dashboards.
+
+✅ 3.3 Reporting Module (ANALYTICAL CORE)
+
+Reports are inventory-driven, not booking-driven.
+
+Features
+
+Date range filtering
+
+Blocked room nights calculation
+
+Occupancy percentage
+
+Potential revenue calculation
+
+Daily breakdown table
+
+Bar chart (daily revenue)
+
+Export Capabilities
+
+Excel Export
+
+Structured, finance-friendly
+
+Editable
+
+PDF Export
+
+Visual snapshot
+
+Charts + KPIs + table
+
+Owner / client ready
+
+4️⃣ WHAT WAS INTENTIONALLY REMOVED (AND WHY)
+❌ Reservation / PMS Module
+
+Reservation logic was intentionally removed because:
+
+Channel managers do not own bookings
+
+OTAs send bookings via APIs
+
+PMS handles guest lifecycle
+
+Keeping reservations would:
+
+Add unnecessary coupling
+
+Complicate OTA sync
+
+Reduce scalability
+
+Instead:
+
+Calendar stop-sell represents sold inventory
+
+OTA bookings will later mark dates as stop-sell
+
+This is a correct industry decision, not a shortcut.
+
+5️⃣ EVENT-DRIVEN ARCHITECTURE (IMPORTANT)
+
+The entire frontend follows an event model:
+
+Inventory Change
+      ↓
+inventoryUpdated Event
+      ↓
+Dashboard + Reports Update
+Why this matters:
+
+Mirrors backend pub/sub systems
+
+Easy to migrate to WebSockets / Kafka / Redis later
+
+Keeps modules loosely coupled
+
+6️⃣ DATA MODELS (BACKEND-READY)
+Inventory (Core Entity)
+{
+  "propertyId": 1,
+  "roomTypes": [
+    {
+      "id": 101,
+      "name": "Deluxe",
+      "rooms": [
+        {
+          "roomNo": 201,
+          "basePrice": 2500,
+          "active": true,
+          "calendar": {
+            "YYYY-MM-DD": {
+              "status": "available | stopsell",
+              "price": number | null
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+
+This structure maps cleanly to relational or NoSQL databases.
+
+7️⃣ HOW OTA INTEGRATION WILL WORK (FUTURE SCOPE)
+🔼 OTA Push (Outbound)
+
+Push availability (stop sell)
+
+Push rates (base + override)
+
+🔽 OTA Pull (Inbound)
+
+Receive booking → mark date stop-sell
+
+Receive cancellation → free date
+
+Suggested Backend APIs
+POST /api/inventory/availability
+POST /api/inventory/rates
+POST /api/ota/webhook/booking
+POST /api/ota/webhook/cancel
+
+Frontend code will not change significantly.
+
+8️⃣ FUTURE WORK (PLANNED & DOCUMENTED)
+🔜 Backend Integration
+
+Replace localStorage with REST APIs
+
+Add authentication middleware
+
+Persist inventory to database
+
+🔜 Multi-Property Support
+
+Property selector
+
+Cross-property reporting
+
+🔜 OTA Mapping Layer
+
+OTA → Room Type mapping
+
+OTA → Rate Plan mapping
+
+🔜 Advanced Reporting
+
+Monthly pickup reports
+
+ADR / RevPAR
+
+Occupancy heatmaps

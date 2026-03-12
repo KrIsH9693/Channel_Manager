@@ -1,0 +1,63 @@
+/* =========================
+   GLOBAL
+========================= */
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #f8f9fa;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+#sidebar {
+  width: 240px;
+  background: #212529;
+}
+
+#sidebar a {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+#sidebar a:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+/* =========================
+   HEADER
+========================= */
+
+#header {
+  background: #ffffff;
+  border-bottom: 1px solid #eaeaea;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+  border-radius: 12px;
+}
+
+.card h3 {
+  font-weight: 700;
+}
+
+/* =========================
+   DASHBOARD CHART
+========================= */
+
+canvas {
+  max-width: 100%;
+}
+
+/* =========================
+   SCROLL FIX
+========================= */
+
+#app-content {
+  overflow-y: auto;
+}

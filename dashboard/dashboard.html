@@ -1,0 +1,190 @@
+<div class="container-fluid mt-4">
+
+<!-- DASHBOARD STATS -->
+<div class="row g-4">
+
+  <div class="col-md-3">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <h6 class="text-muted">Total Properties</h6>
+        <h3 id="totalProperties">0</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <h6 class="text-muted">Active OTAs</h6>
+        <h3 id="activeOTAs">0</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <h6 class="text-muted">Rooms Blocked Today</h6>
+        <h3 id="todayBookings">0</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <h6 class="text-muted">Today’s Revenue</h6>
+        <h3 id="totalRevenue">₹0</h3>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- SECOND ROW -->
+<div class="row g-4 mt-1">
+
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted">Room Types</h6>
+        <h3 id="totalRoomTypes">0</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted">Total Rooms</h6>
+        <h3 id="totalRooms">0</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted">Occupancy</h6>
+        <h3 id="occupancyRate">0%</h3>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- MAIN DASHBOARD GRID -->
+<div id="dashboardGrid" class="row g-4 mt-2">
+
+
+<!-- WEEKLY REVENUE -->
+<div class="col-lg-6 widget" id="w1">
+<div class="card shadow-sm border-0 h-100">
+<div class="card-body">
+<h5 class="mb-3">Weekly Revenue</h5>
+<div style="height:260px">
+<canvas id="revenueChart"></canvas>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- TODAY STATUS -->
+<div class="col-lg-6 widget" id="w2">
+<div class="card shadow-sm border-0 h-100">
+<div class="card-body text-center">
+<h5 class="mb-3">Today Room Status</h5>
+<div style="height:260px">
+<canvas id="todayChart"></canvas>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- MONTHLY REVENUE -->
+<div class="col-lg-6 widget" id="w3">
+<div class="card shadow-sm border-0 h-100">
+<div class="card-body">
+<h5 class="mb-3">Monthly Revenue</h5>
+<div style="height:260px">
+<canvas id="monthlyRevenueChart"></canvas>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- OTA SHARE -->
+<div class="col-lg-6 widget" id="w4">
+<div class="card shadow-sm border-0 h-100">
+<div class="card-body">
+<h5 class="mb-3">OTA Booking Share</h5>
+<div style="height:260px">
+<canvas id="otaChart"></canvas>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- OCCUPANCY TREND -->
+<div class="col-lg-6 widget" id="w5">
+<div class="card shadow-sm border-0 h-100">
+<div class="card-body">
+<h5 class="mb-3">Occupancy Trend</h5>
+<div style="height:260px">
+<canvas id="occupancyChart"></canvas>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- CALENDAR HEATMAP -->
+<div class="col-lg-6 widget" id="w6">
+<div class="card shadow-sm border-0 h-100">
+<div class="card-body">
+<h5 class="mb-3">Booking Activity (30 Days)</h5>
+
+<div id="calendarHeatmap"
+style="display:flex;flex-wrap:wrap;width:200px">
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- FORECAST -->
+<div class="col-lg-12 widget" id="w7">
+<div class="card shadow-sm border-0">
+<div class="card-body text-center">
+
+<h5 class="mb-2">Revenue Forecast</h5>
+
+<h2 class="text-primary" id="forecastRevenue">
+₹0
+</h2>
+
+<p class="text-muted mb-0">
+Predicted revenue based on last 7 days trend
+</p>
+
+</div>
+</div>
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="dashboard/js/dashboard.js"></script>
+<script src="/assets/js/auth.js"></script>

@@ -1,0 +1,34 @@
+let revenueChart = null;
+
+function renderRevenueChart() {
+
+  const canvas = document.getElementById("revenueChart");
+  if (!canvas || typeof Chart === "undefined") return;
+
+  if (revenueChart) revenueChart.destroy();
+
+  revenueChart = new Chart(canvas, {
+    type: "line",
+    data: {
+      labels: getLast7Days(),
+      datasets: [{
+        data: getWeeklyRevenue(),
+        borderColor: "#0d6efd",
+        backgroundColor: "rgba(13,110,253,0.15)",
+        borderWidth: 3,
+        fill: true,
+        tension: 0.45,
+        pointRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+}
